@@ -1,7 +1,7 @@
 // Hansel Hernandez - _gishikoDev
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, StatusBar, Image } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TouchableHighlight, StyleSheet, StatusBar, Image } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -28,6 +28,11 @@ export default function ListUsers() {
     await AsyncStorage.setItem('@usuarios', JSON.stringify(filtered));
   };
 
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('@logado');
+    navigation.replace('LoginScreen'); // volta para tela de login
+  };
+
   const renderItem = ({ item }) => (
     <View style={styles.item}>
       <View style={styles.info}>
@@ -51,25 +56,38 @@ export default function ListUsers() {
       <StatusBar backgroundColor="#282a36" barStyle="light-content" />
       <View style={styles.container}>
         <View style={styles.logoContainer}>
-        <Image
-          source={require('../../assets/logo.png')} 
-          style={styles.logo}
-        />
+          <Image
+            source={require('../../assets/logo.png')} 
+            style={styles.logo}
+          />
         </View>
 
         <Text style={styles.title}>Lista de Usuários</Text>
-        <Text style={styles.title}>Presiona + para adicionar </Text>
+        <Text style={styles.title}>Pressione + para adicionar</Text>
+
         <FlatList
           data={users}
           keyExtractor={item => item.cpf}
           renderItem={renderItem}
         />
+
+        {/* Botão adicionar usuário */}
         <TouchableOpacity
           style={styles.addButton}
           onPress={() => navigation.navigate('UserForm')}
         >
           <Text style={styles.addText}>+</Text>
         </TouchableOpacity>
+
+        {/* Botão sair */}
+        <TouchableHighlight
+          style={styles.logoutButton}
+          underlayColor="#ff4444"
+          onPress={handleLogout}
+        >
+          <Text style={styles.logoutText}>Sair</Text>
+        </TouchableHighlight>
+
         <Text style={styles.footer}>O futuro se programa hoje! - _gishikoDev </Text>
       </View>
     </SafeAreaView>
@@ -124,7 +142,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 80,
     right: 20,
     backgroundColor: '#8be9fd',
     borderRadius: 30,
@@ -136,6 +154,20 @@ const styles = StyleSheet.create({
   addText: {
     color: '#282a36',
     fontSize: 30,
+  },
+  logoutButton: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    backgroundColor: '#ff5555',
+    borderRadius: 6,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  logoutText: {
+    color: '#f8f8f2',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   logo:{
     height: 80,
@@ -149,6 +181,7 @@ const styles = StyleSheet.create({
     color: 'gray',
     fontSize: 10,
     fontStyle: 'italic',
-    marginStart: 16,
+    marginTop: 16,
+    textAlign: 'center',
   }
 });
