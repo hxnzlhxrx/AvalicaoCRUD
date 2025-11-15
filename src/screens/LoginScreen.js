@@ -12,7 +12,7 @@ export default function LoginScreen({ navigation }) {
     if (Platform.OS === 'android') {
       ToastAndroid.show(message, ToastAndroid.SHORT);
     } else {
-      Alert.alert(message); // fallback para iOS
+      Alert.alert(message);
     }
   };
 
@@ -32,13 +32,11 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Logo no topo */}
       <View style={styles.logoContainer}>
         <Image source={require('../../assets/logo.png')} style={styles.logo} />
         <Text style={styles.title}>Bem-vindo ao App!</Text>
       </View>
 
-      {/* Campo de e-mail */}
       <TextInput
         style={styles.input}
         placeholder="E-mail"
@@ -47,7 +45,6 @@ export default function LoginScreen({ navigation }) {
         onChangeText={setEmail}
       />
 
-      {/* Campo de senha */}
       <TextInput
         style={styles.input}
         placeholder="Senha"
@@ -57,7 +54,6 @@ export default function LoginScreen({ navigation }) {
         onChangeText={setSenha}
       />
 
-      {/* Botão Entrar */}
       <TouchableHighlight
         style={styles.button}
         underlayColor="#50fa7b"
@@ -66,7 +62,6 @@ export default function LoginScreen({ navigation }) {
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableHighlight>
 
-      {/* Botão Continuar sem login */}
       <TouchableHighlight
         style={styles.secondaryButton}
         underlayColor="#8be9fd"

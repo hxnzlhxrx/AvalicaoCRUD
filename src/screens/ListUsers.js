@@ -30,7 +30,7 @@ export default function ListUsers() {
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem('@logado');
-    navigation.replace('LoginScreen'); // volta para tela de login
+    navigation.replace('LoginScreen');
   };
 
   const renderItem = ({ item }) => (
@@ -71,7 +71,6 @@ export default function ListUsers() {
           renderItem={renderItem}
         />
 
-        {/* Botão adicionar usuário */}
         <TouchableOpacity
           style={styles.addButton}
           onPress={() => navigation.navigate('UserForm')}
@@ -79,7 +78,6 @@ export default function ListUsers() {
           <Text style={styles.addText}>+</Text>
         </TouchableOpacity>
 
-        {/* Botão sair */}
         <TouchableHighlight
           style={styles.logoutButton}
           underlayColor="#ff4444"

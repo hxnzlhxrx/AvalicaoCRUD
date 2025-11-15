@@ -12,7 +12,7 @@ export default function UserForm({ route, navigation }) {
     telefone: "",
     cpf: "",
     cep: "",
-    logradouro: "",
+    logradouro: "", 
     bairro: "",
     cidade: "",
     uf: "",
